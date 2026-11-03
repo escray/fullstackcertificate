@@ -1,10 +1,113 @@
-﻿using System.Security.Cryptography.X509Certificates;
+﻿using System;
+using System.Collections.Generic;  // Needed for List<T>
 
 internal class Program
 {
     private static void Main(string[] args)
     {
         Console.WriteLine("Hello, World!");
+        List<string> tasks = new List<string>();
+        while (true)
+        {
+            Console.WriteLine("1. View Tasks");
+            Console.WriteLine("2. Add Task");
+            Console.WriteLine("3. Mark Task Complete");
+            Console.WriteLine("4. Exit");
+            Console.Write("Enter your choice: ");
+
+            string? choiceInput = Console.ReadLine();
+            if (choiceInput is null)
+            {
+                Console.WriteLine("\nInput closed. Exiting.");
+                return;
+            }
+
+            if (int.TryParse(choiceInput.Trim(), out int choice))
+            {
+                switch (choice)
+                {
+                    case 1:
+                        if (tasks.Count == 0)
+                        {
+                            Console.WriteLine("No tasks available.");
+                        }
+                        else
+                        {
+                            for (int i = 0; i < tasks.Count; i++)
+                            {
+                                Console.WriteLine($"{i + 1}. {tasks[i]}");
+                            }
+                        }
+                        break;
+
+                    case 2:
+                        Console.Write("Enter the task: ");
+                        string? task = Console.ReadLine()?.Trim();
+                        if (string.IsNullOrWhiteSpace(task))
+                        {
+                            Console.WriteLine("Task description cannot be empty.");
+                            break;
+                        }
+
+                        tasks.Add(task);
+                        Console.WriteLine("Task added.");
+                        break;
+
+                    case 3:
+                        if (tasks.Count == 0)
+                        {
+                            Console.WriteLine("No tasks available to complete.");
+                            break;
+                        }
+
+                        Console.WriteLine("Enter the task number to mark complete: ");
+                        string? taskNumberInput = Console.ReadLine();
+                        if (taskNumberInput is null)
+                        {
+                            Console.WriteLine("\nInput closed. Exiting.");
+                            return;
+                        }
+
+                        if (int.TryParse(taskNumberInput.Trim(), out int taskNumber) &&
+                            taskNumber >= 1 &&
+                            taskNumber <= tasks.Count)
+                        {
+                            int taskIndex = taskNumber - 1;
+                            if (tasks[taskIndex].EndsWith(" [Complete]", StringComparison.Ordinal))
+                            {
+                                Console.WriteLine("That task is already complete.");
+                            }
+                            else
+                            {
+                                tasks[taskIndex] += " [Complete]";
+                                Console.WriteLine("Task marked as complete.");
+                            }
+                        }
+                        else
+                        {
+                            Console.WriteLine($"Invalid task number. Enter a number from 1 to {tasks.Count}.");
+                        }
+                        break;
+
+                    case 4:
+                        Console.WriteLine("Goodbye.");
+                        return;
+
+                    default:
+                        Console.WriteLine("Invalid option, please try again.");
+                        break;
+                }
+            }
+            else
+            {
+                Console.WriteLine("Please enter a valid number.");
+            }
+        }
+
+
+
+
+
 
         // // Step 1: Integrating If-Else with Loops
         // do
@@ -149,117 +252,116 @@ internal class Program
         //     return (num1 + num2 + num3) / 3;
         // }
 
-        string task1 = string.Empty;
-        string task2 = string.Empty;
-        string task3 = string.Empty;
+        //     string task1 = string.Empty;
+        //     string task2 = string.Empty;
+        //     string task3 = string.Empty;
 
-        bool task1Finished = false;
-        bool task2Finished = false;
-        bool task3Finished = false;
+        //     bool task1Finished = false;
+        //     bool task2Finished = false;
+        //     bool task3Finished = false;
 
-        System.Console.WriteLine("Please input a task: ");
-        string userTask = Console.ReadLine();
-        if (task1 == string.Empty)
-        {
-            task1 = userTask;
-        }
-        else if (task2 == string.Empty)
-        {
-            task2 = userTask;
-        }
-        else if (task3 == string.Empty)
-        {
-            task3 = userTask;
-        }
-        else
-        {
-            System.Console.WriteLine("No more task can be added.");
-        }
+        //     System.Console.WriteLine("Please input a task: ");
+        //     string userTask = Console.ReadLine();
+        //     if (task1 == string.Empty)
+        //     {
+        //         task1 = userTask;
+        //     }
+        //     else if (task2 == string.Empty)
+        //     {
+        //         task2 = userTask;
+        //     }
+        //     else if (task3 == string.Empty)
+        //     {
+        //         task3 = userTask;
+        //     }
+        //     else
+        //     {
+        //         System.Console.WriteLine("No more task can be added.");
+        //     }
 
-        System.Console.WriteLine("Which task you want to mark finished (1, 2, 3) ? ");
-        int finishMark = int.Parse(Console.ReadLine());
-        if (finishMark == 1)
-        {
-            task1Finished = true;
-        }
-        else if (finishMark == 2)
-        {
-            task2Finished = true;
-        }
-        else if (finishMark == 3)
-        {
-            task3Finished = true;
-        }
-        else
-        {
-            System.Console.WriteLine("You selected an invalid task number.");
-        }
+        //     System.Console.WriteLine("Which task you want to mark finished (1, 2, 3) ? ");
+        //     int finishMark = int.Parse(Console.ReadLine());
+        //     if (finishMark == 1)
+        //     {
+        //         task1Finished = true;
+        //     }
+        //     else if (finishMark == 2)
+        //     {
+        //         task2Finished = true;
+        //     }
+        //     else if (finishMark == 3)
+        //     {
+        //         task3Finished = true;
+        //     }
+        //     else
+        //     {
+        //         System.Console.WriteLine("You selected an invalid task number.");
+        //     }
 
-        if (task1Finished)
-        {
-            System.Console.WriteLine("task1 Completed");
-        }
-        else
-        {
-            System.Console.WriteLine("task1 Pending");
-        }
+        //     if (task1Finished)
+        //     {
+        //         System.Console.WriteLine("task1 Completed");
+        //     }
+        //     else
+        //     {
+        //         System.Console.WriteLine("task1 Pending");
+        //     }
 
-        if (task2Finished)
-        {
-            System.Console.WriteLine("task2 Completed");
-        }
-        else
-        {
-            System.Console.WriteLine("task2 Pending");
-        }
+        //     if (task2Finished)
+        //     {
+        //         System.Console.WriteLine("task2 Completed");
+        //     }
+        //     else
+        //     {
+        //         System.Console.WriteLine("task2 Pending");
+        //     }
 
-        if (task2Finished)
-        {
-            System.Console.WriteLine("task3 Completed");
-        }
-        else
-        {
-            System.Console.WriteLine("task3 Pending");
-        }
+        //     if (task2Finished)
+        //     {
+        //         System.Console.WriteLine("task3 Completed");
+        //     }
+        //     else
+        //     {
+        //         System.Console.WriteLine("task3 Pending");
+        //     }
 
+        // }
+
+        // public char CalculateGrade(int studentScore)
+        // {
+        //     return studentScore switch
+        //     {
+        //         >= 90 => 'A',
+        //         >= 80 => 'B',
+        //         >= 70 => 'C',
+        //         >= 60 => 'D',
+        //         _ => 'F'
+        //     };
+        // }
+
+        // public static void DisplayWelcomeMessage()
+        // {
+        //     System.Console.WriteLine("Welcome to our Program!");
+        // }
+
+        // public static void GreetUser(string name)
+        // {
+        //     System.Console.WriteLine($"Hello {name}!");
+        // }
+
+        // public static int CalculateSum(int a, int b)
+        // {
+        //     return a + b;
+        // }
+
+        // public static bool isPositive(int number)
+        // {
+        //     return number > 0;
+        // }
+
+        // public static bool IsOldEnoughToDrive(int age)
+        // {
+        //     return age > 18;
+        // }
     }
-
-    public char CalculateGrade(int studentScore)
-    {
-        return studentScore switch
-        {
-            >= 90 => 'A',
-            >= 80 => 'B',
-            >= 70 => 'C',
-            >= 60 => 'D',
-            _ => 'F'
-        };
-    }
-
-    // public static void DisplayWelcomeMessage()
-    // {
-    //     System.Console.WriteLine("Welcome to our Program!");
-    // }
-
-    // public static void GreetUser(string name)
-    // {
-    //     System.Console.WriteLine($"Hello {name}!");
-    // }
-
-    // public static int CalculateSum(int a, int b)
-    // {
-    //     return a + b;
-    // }
-
-    // public static bool isPositive(int number)
-    // {
-    //     return number > 0;
-    // }
-
-    // public static bool IsOldEnoughToDrive(int age)
-    // {
-    //     return age > 18;
-    // }
-
-
 }
