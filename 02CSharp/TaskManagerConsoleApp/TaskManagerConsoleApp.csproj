@@ -7,8 +7,4 @@
     <Nullable>enable</Nullable>
   </PropertyGroup>
 
-  <ItemGroup>
-    <PackageReference Include="Pastel" Version="8.0.0" />
-  </ItemGroup>
-
 </Project>
